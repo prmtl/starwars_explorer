@@ -1,6 +1,8 @@
 {% extends "explorer/base.html" %}
 
 {% block content %}
+  <h2>Collections</h2>
+  <a class="pure-button pure-button-primary" href="#">Fetch</a>
   <table class="pure-table">
     <thead>
       <tr>
@@ -11,13 +13,14 @@
     <tbody>
       {% for collection in object_list %}
         <tr>
+          <!-- Format similar to the one from requirements screen -->
           <td><a href="{{ collection.id }}">{{ collection.created_at|date:"DATETIME_FORMAT" }}</a></td>
           <td><a href="{{ collection.id }}">Download</a></td>
         </tr>
-      {% empty %}
-      <tr>
-            <td colspan="2">No data yet.</td>
-      </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No data yet.</td>
+        </tr>
       {% endfor %}
 
     </tbody>
