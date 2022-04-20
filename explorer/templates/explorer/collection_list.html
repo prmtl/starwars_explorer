@@ -1,0 +1,25 @@
+{% extends "explorer/base.html" %}
+
+{% block content %}
+  <table class="pure-table">
+    <thead>
+      <tr>
+        <th>Fetched Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for collection in object_list %}
+        <tr>
+          <td><a href="{{ collection.id }}">{{ collection.created_at|date:"DATETIME_FORMAT" }}</a></td>
+          <td><a href="{{ collection.id }}">Download</a></td>
+        </tr>
+      {% empty %}
+      <tr>
+            <td colspan="2">No data yet.</td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}

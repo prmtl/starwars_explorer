@@ -1,3 +1,8 @@
-from django.shortcuts import render  # noqa: F401
+from django.views.generic.list import ListView
 
-# Create your views here.
+from .models import Collection
+
+
+# NOTE: this could be also paginated but there is no such requirement for now
+class CollectionListView(ListView):
+    model = Collection
