@@ -1,3 +1,9 @@
-from django.contrib import admin  # noqa: F401
+from django.contrib import admin
 
-# Register your models here.
+from .models import Collection
+
+
+@admin.register(Collection)
+class CollectionsAdmin(admin.ModelAdmin):
+    list_display = ("id", "created_at", "updated_at")
+    readonly_fields = ("id",)
