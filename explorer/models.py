@@ -16,3 +16,4 @@ class TimestampedModel(models.Model):
 class Collection(TimestampedModel):
     # NOTE: this is to avoid enumeration of records (but not really a problem here...)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    file = models.FileField(upload_to="collection_csv")
