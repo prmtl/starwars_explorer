@@ -1,6 +1,7 @@
+import petl as etl
 import pytest
 
-from explorer.services.processing import process_people_and_planets_data, reformat_date
+from explorer.services.processing import as_csv_contentfile, process_people_and_planets_data, reformat_date
 
 PEOPLE = [
     {
@@ -178,3 +179,14 @@ def test_simple_data_processing():
 
     for row in rows:
         assert "https" not in row["homeworld"]
+
+
+def test_converting_to_contentfile():
+    table = etl.fromdicts(
+        [
+            {"field1": "x"},
+            {"field1": "y"},
+        ]
+    )
+    contentfile = as_csv_contentfile(table)
+    assert contentfile.read() == b"field1\r\nx\r\ny\r\n"

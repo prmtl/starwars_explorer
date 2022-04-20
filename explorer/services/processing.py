@@ -1,6 +1,5 @@
-from typing import Any, Dict
-
 import petl as etl
+from django.core.files.base import ContentFile
 from django.utils.dateparse import parse_datetime
 
 # NOTE: I wanted to name this service 'etl' but this is used often in petl examples so to avoid confusion
@@ -27,7 +26,7 @@ def reformat_date(date_string: str, date_format: str = SHORT_DATE_FORMAT):
     return date.strftime(date_format)
 
 
-def process_people_and_planets_data(people: Dict[str, Any], planets: Dict[str, Any]):
+def process_people_and_planets_data(people, planets):
     """Merges people with planets and applies various operations on merged table fields."""
     people_table = etl.fromdicts(people, header=PEOPLE_HEADERS)
     planets_table = etl.fromdicts(planets, header=PLANETS_HEADERS)
@@ -41,3 +40,9 @@ def process_people_and_planets_data(people: Dict[str, Any], planets: Dict[str, A
         .rename({"edited": "date", "planet_name": "homeworld"})
         .convert("date", reformat_date)
     )
+
+
+def as_csv_contentfile(table):
+    source = etl.MemorySource()
+    table.tocsv(source)
+    return ContentFile(source.getvalue())
