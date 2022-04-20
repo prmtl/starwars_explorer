@@ -11,14 +11,14 @@ RUN curl -sSL https://install.python-poetry.org | python - && \
 
 RUN poetry install --no-root --no-dev
 
-# NOTE: after adding actual app
-# COPY app app/
-# COPY manage.py ./
+COPY starwars_explorer ./starwars_explorer
+COPY manage.py ./
 WORKDIR /opt/starwars_explorer
 
 ENV LOG_LEVEL info
 
-RUN ./manage.py collectstatic --noinput
+# TODO: reenable after updating settings
+# RUN ./manage.py collectstatic --noinput
 CMD [ "sh", "-c", "python manage.py runserver 0.0.0.0:8000" ]
 
 # For development build
