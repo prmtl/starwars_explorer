@@ -7,6 +7,9 @@ authors = ["Your Name <you@example.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 Django = "^4.0.4"
+dj-database-url = "^0.5.0"
+python-decouple = "^3.6"
+psycopg2 = "^2.9.3"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.18.1"
