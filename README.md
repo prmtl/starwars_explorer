@@ -9,3 +9,5 @@
  * Record log of downloading new dataset
  * Consider using some kind of a worker for moving as much as possible to background (Celery) if it would not fit into request time limit
  * Prevent users from starting multiple downloads at the same time
+ * For testing views I would try to use tool like Cypress
+ * Depending of the use case of the app it might be worth exposing API of some kind (REST, or GQL) and then use that API to implement fancy UI.
