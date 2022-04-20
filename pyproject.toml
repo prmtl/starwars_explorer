@@ -9,7 +9,20 @@ python = "^3.9"
 Django = "^4.0.4"
 
 [tool.poetry.dev-dependencies]
+pre-commit = "^2.18.1"
+black = "^22.3.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+known_first_party = "app"
+line_length = 110
+
+[tool.black]
+line-length = 110
+target-version = ["py310"]
