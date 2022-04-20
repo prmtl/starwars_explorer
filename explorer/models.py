@@ -13,6 +13,6 @@ class TimestampedModel(models.Model):
         ordering = ["-created_at"]
 
 
-class CollectionModel(TimestampedModel):
+class Collection(TimestampedModel):
     # NOTE: this is to avoid enumeration of records (but not really a problem here...)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
