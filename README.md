@@ -14,6 +14,9 @@ Alternatively it can be run without `Docker` but then some `env` variables need 
 Most important would be `DATABASE_URL` to point it to some SQL database, but it was only tested
 with PostgreSQL (but it is simple enough that there should be no problem with any kind, including SQLite)
 
+Whole app is left with `DEBUG` set to `True` which is obviously not a good idea to use in a production deployment.
+But since it is running on a development server (as requested) there is no point in turining it off.
+
 
 ## Running tests
 
@@ -28,6 +31,20 @@ docker compose exec app py.test -vv
 ```
 docker compose logs app
 ```
+
+
+## Accessing admin panel:
+
+When running for first time, it is neccessary to create a user with access to Admin panel (if access there is required):
+
+If app is run using `Docker` it can be done like this:
+
+```
+docker compose exec app python manage.py createsuperuser
+```
+
+When running using `Docker` admin panel is available on http://localhost:8000/admin.
+
 
 ## Possible improvements
 
