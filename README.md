@@ -48,6 +48,8 @@ When running using `Docker` admin panel is available on http://localhost:8000/ad
 
 ## Possible improvements
 
+There are also comments inside the code what and how things could be changed/improved. Below is a list of general thoughts:
+
  * Integrate Sentry for reporting errors (must-have for production)
  * Integrate tools like DataDog for gathering logs and metrics
  * Use structured logs (like `python-json-logger`)
@@ -58,3 +60,4 @@ When running using `Docker` admin panel is available on http://localhost:8000/ad
  * For testing views I would try to use tool like Cypress
  * Depending of the use case of the app it might be worth exposing API of some kind (REST, or GQL) and then use that API to implement fancy UI.
  * Add Makefile as a helper for running common commands
+ * Dir with uploads should be put on a volume in docker compose config to do not loose files when recreating container, but for dev it is OK.
