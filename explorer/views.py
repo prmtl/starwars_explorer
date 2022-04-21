@@ -1,8 +1,14 @@
+import logging
+
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from .models import Collection
+from explorer.models import Collection
+from explorer.services import collections
+
+# NOTE: logging could be configured better in django settings (adjust levels and format)
+logger = logging.getLogger(__name__)
 
 
 # NOTE: this could be also paginated but there is no such requirement for now
@@ -19,4 +25,7 @@ class CollectionFetchView(RedirectView):
     pattern_name = "collection-list"
 
     def get(self, request, *args, **kwargs):
+        logger.info("Trigger new fetch request")
+        collection = collections.fetch_and_save_new_collection()
+        logger.info("Fetched new collection %s to %s", collection, collection.file.path)
         return super().get(request, *args, **kwargs)
