@@ -61,3 +61,4 @@ There are also comments inside the code what and how things could be changed/imp
  * Depending of the use case of the app it might be worth exposing API of some kind (REST, or GQL) and then use that API to implement fancy UI.
  * Add Makefile as a helper for running common commands
  * Dir with uploads should be put on a volume in docker compose config to do not loose files when recreating container, but for dev it is OK.
+ * Display "Load more" only if there is more data

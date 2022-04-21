@@ -19,12 +19,16 @@ class CollectionListView(ListView):
 class CollectionDetailView(DetailView):
     model = Collection
 
+    PAGE_SIZE = 10
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        import petl as etl
+        limit = int(self.request.GET.get("limit", self.PAGE_SIZE))
+        collection_data = collections.load_collection_data(self.object, limit=limit)
 
-        table = etl.fromcsv(self.object.file.path)
-        context["people"] = table.dicts()
+        context["people"] = collection_data
+        context["next_limit"] = limit + self.PAGE_SIZE
+
         return context
 
 

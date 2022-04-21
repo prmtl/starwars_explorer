@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.db import transaction
 
 from explorer.models import Collection
@@ -30,3 +32,7 @@ def fetch_and_save_new_collection():
     collection.file.save(filename, file)
 
     return collection
+
+
+def load_collection_data(collection: Collection, limit: Optional[int] = None):
+    return processing.load_table_as_dicts(filepath=collection.file.path, limit=limit)

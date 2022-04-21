@@ -34,4 +34,5 @@
       {% endfor %}
     </tbody>
   </table>
+  <a class="pure-button pure-button-primary" href="{% url 'collection-detail' pk=object.id %}?limit={{ next_limit | urlencode }}">Load more</a>
 {% endblock %}

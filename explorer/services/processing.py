@@ -1,3 +1,5 @@
+from typing import Optional
+
 import petl as etl
 from django.core.files.base import ContentFile
 from django.utils.dateparse import parse_datetime
@@ -46,3 +48,7 @@ def as_csv_contentfile(table):
     source = etl.MemorySource()
     table.tocsv(source)
     return ContentFile(source.getvalue())
+
+
+def load_table_as_dicts(filepath: str, limit: Optional[int] = None):
+    return etl.fromcsv(filepath).rowslice(limit).dicts()
