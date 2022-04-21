@@ -57,7 +57,10 @@ class CollectionValueCountView(DetailView):
         if form.is_valid():
             selected_fields = form.cleaned_data["fields"]
 
-        aggregation = processing.count_selected_fields_combinations_for_table(table, selected_fields)
+        try:
+            aggregation = processing.count_selected_fields_combinations_for_table(table, selected_fields)
+        except ValueError:
+            aggregation = []
 
         context["form"] = form
         context["fields"] = selected_fields
