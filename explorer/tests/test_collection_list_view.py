@@ -1,4 +1,5 @@
 import pytest
+from django.core.files.base import ContentFile
 
 from explorer.models import Collection
 
@@ -8,6 +9,7 @@ pytestmark = pytest.mark.django_db
 @pytest.fixture
 def collection():
     c = Collection()
+    c.file = ContentFile(b"field\n\rvalue\n\r", "file.csv")
     c.save()
     return c
 
