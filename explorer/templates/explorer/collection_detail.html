@@ -5,15 +5,33 @@
   <table class="pure-table">
     <thead>
       <tr>
-        <th></th>
-        <th></th>
+        <th>Name</th>
+        <th>Height</th>
+        <th>Mass</th>
+        <th>Hair Color</th>
+        <th>Skin Color</th>
+        <th>Eye Color</th>
+        <th>Birht Year</th>
+        <th>Gender</th>
+        <th>Date</th>
+        <th>Homeworld</th>
       </tr>
     </thead>
     <tbody>
+      {% for person in people %}
       <tr>
-        <td></td>
-        <td></td>
+        <td>{{ person.name }}</td>
+        <td>{{ person.height }}</td>
+        <td>{{ person.mass }}</td>
+        <td>{{ person.hair_color }}</td>
+        <td>{{ person.skin_color }}</td>
+        <td>{{ person.eye_color }}</td>
+        <td>{{ person.birth_year }}</td>
+        <td>{{ person.gender }}</td>
+        <td>{{ person.date }}</td>
+        <td>{{ person.homeworld }}</td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 {% endblock %}

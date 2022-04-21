@@ -19,6 +19,14 @@ class CollectionListView(ListView):
 class CollectionDetailView(DetailView):
     model = Collection
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        import petl as etl
+
+        table = etl.fromcsv(self.object.file.path)
+        context["people"] = table.dicts()
+        return context
+
 
 class CollectionFetchView(RedirectView):
     permanent = False
