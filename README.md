@@ -63,3 +63,4 @@ There are also comments inside the code what and how things could be changed/imp
  * Dir with uploads should be put on a volume in docker compose config to do not loose files when recreating container, but for dev it is OK.
  * Display "Load more" only if there is more data
  * I would focus more on types wich I intentionally skipped in most of the time
+ * README is sparse and it assumes that person using this app knows the point of the task and doesn't need to have explained all the requirements and functions.
