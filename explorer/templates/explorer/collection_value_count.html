@@ -1,0 +1,33 @@
+{% extends "explorer/base.html" %}
+
+{% block content %}
+  <h2>Collection {{ object.id }} Value Count</h2>
+  <form action="." method="GET">
+    {{ form.as_p }}
+    <input type="submit" value="Show" />
+  </form>
+  <table class="pure-table">
+    <thead>
+      <tr>
+        {% for field in fields %}
+          <th>{{ field }}</th>
+        {% endfor %}
+        {% if fields %}
+          <th>count</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in aggregation %}
+        <tr>
+          {% for field in fields %}
+            <td>
+              {{ row|get_item:field }}
+            </td>
+          {% endfor %}
+          <td>{{ row.value }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

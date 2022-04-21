@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 import petl as etl
 from django.core.files.base import ContentFile
@@ -52,3 +52,23 @@ def as_csv_contentfile(table):
 
 def load_table_as_dicts(filepath: str, limit: Optional[int] = None):
     return etl.fromcsv(filepath).rowslice(limit).dicts()
+
+
+def load_table(filepath: str):
+    return etl.fromcsv(filepath)
+
+
+def count_selected_fields_combinations_for_table(table, selected_fields: List[str]):
+    """Return counts of field combinations in form of a dict list
+
+    ```
+    [
+        {"filedA": "x",  "fieldB": "y", "value": 2},
+        {"filedA": "r",  "fieldB": "y", "value": 1},
+        ...
+    ]
+    ```
+    """
+    if not selected_fields:
+        raise ValueError("At least one field need to be slected")
+    return table.aggregate(key=selected_fields, aggregation=len).dicts()

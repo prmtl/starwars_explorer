@@ -62,3 +62,4 @@ There are also comments inside the code what and how things could be changed/imp
  * Add Makefile as a helper for running common commands
  * Dir with uploads should be put on a volume in docker compose config to do not loose files when recreating container, but for dev it is OK.
  * Display "Load more" only if there is more data
+ * I would focus more on types wich I intentionally skipped in most of the time

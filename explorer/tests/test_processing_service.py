@@ -1,7 +1,12 @@
 import petl as etl
 import pytest
 
-from explorer.services.processing import as_csv_contentfile, process_people_and_planets_data, reformat_date
+from explorer.services.processing import (
+    as_csv_contentfile,
+    count_selected_fields_combinations_for_table,
+    process_people_and_planets_data,
+    reformat_date,
+)
 
 PEOPLE = [
     {
@@ -190,3 +195,44 @@ def test_converting_to_contentfile():
     )
     contentfile = as_csv_contentfile(table)
     assert contentfile.read() == b"field1\r\nx\r\ny\r\n"
+
+
+@pytest.fixture
+def table_to_aggregate():
+    return etl.fromdicts(
+        [
+            {"field1": "x", "field2": "1"},
+            {"field1": "x", "field2": "2"},
+            {"field1": "y", "field2": "1"},
+            {"field1": "y", "field2": "1"},
+            {"field1": "y", "field2": "1"},
+            {"field1": "x", "field2": "1"},
+        ]
+    )
+
+
+def test_counting_values_no_fields(table_to_aggregate):
+    with pytest.raises(ValueError) as exc_info:
+        count_selected_fields_combinations_for_table(table_to_aggregate, selected_fields=[])
+    assert str(exc_info.value) == "At least one field need to be slected"
+
+
+# NOTE: no idea if order of those operation is deterministic, if test start beign flaky, we can sort outputs
+def test_counting_values_single_field(table_to_aggregate):
+    assert list(
+        count_selected_fields_combinations_for_table(table_to_aggregate, selected_fields=["field1"])
+    ) == [
+        {"field1": "x", "value": 3},
+        {"field1": "y", "value": 3},
+    ]
+    #
+
+
+def test_counting_values_multiple_fields(table_to_aggregate):
+    assert list(
+        count_selected_fields_combinations_for_table(table_to_aggregate, selected_fields=["field1", "field2"])
+    ) == [
+        {"field1": "x", "field2": "1", "value": 2},
+        {"field1": "x", "field2": "2", "value": 1},
+        {"field1": "y", "field2": "1", "value": 3},
+    ]
